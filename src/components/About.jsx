@@ -6,7 +6,7 @@ const skills = [
   { label: "Frontend: React, Next.js, Tailwind CSS, HTML/CSS" },
   { label: "Backend: Typescript, Node.js, Express, REST APIs" },
   { label: "Databases: PostgreSQL, MongoDB" },
-  { label: "Tools: Git, Vercel, Postman, Docker (basic)" },
+  { label: "Tools: Git, Vercel, Postman, Docker (basic), Appwrite" },
 ];
 
 function SkillItem({ skill, index }) {
