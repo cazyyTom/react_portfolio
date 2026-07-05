@@ -1,6 +1,22 @@
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { useMagneticHover } from "../hooks/useMagneticHover";
 import "./Work.css";
+function CTAButton({ children, href, outline }) {
+  const { ref, onMouseMove, onMouseLeave } = useMagneticHover(0.3);
+  return (
+    <a
+      ref={ref}
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`demo__cta-btn${outline ? " demo__cta-btn--outline" : ""}`}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {children}
+    </a>
+  );
+}
 
 const projects = [
   {
@@ -10,6 +26,8 @@ const projects = [
     year: "2026",
     desc: "Short description of what this project does, the problem it solves, and your role in building it.",
     tags: ["React", "Node.js", "MongoDB"],
+    githubUrl: "",
+    image: "",
   },
   {
     id: "02",
@@ -18,16 +36,19 @@ const projects = [
     year: "2026",
     desc: "Short description of what this project does, the problem it solves, and your role in building it.",
     tags: ["Next.js", "Tailwind CSS"],
+    githubUrl: "",
+    image: "",
   },
   {
     id: "03",
-    title: "Project Three",
-    category: "Backend / REST API",
+    title: "Product Basecamp Management",
+    category: "Full Stack / MERN",
     year: "2026",
-    desc: "Short description of what this project does, the problem it solves, and your role in building it.",
-    tags: ["Express", "PostgreSQL"],
+    desc: "A collaborative project management platform where teams can organize work across projects using Kanban boards and list views, break tasks into subtasks, and keep shared notes in one place. Built the full auth system from scratch — JWT access/refresh tokens, email verification, and password reset — along with role-based permissions so project owners can control who sees and edits what.",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Postman", "JWT"],
+    githubUrl: "https://github.com/cazyyTom/product_management",
+    image: "/pbm.jpg",
   },
-  
 ];
 
 function ProjectCard({ project, index }) {
@@ -42,7 +63,11 @@ function ProjectCard({ project, index }) {
     >
       <div className="project-card__img-wrap">
         <div className="project-card__img-placeholder">
-          <span>{project.id}</span>
+          <img
+            src={project.image}
+            alt="Devesh - fullStack developer"
+            className="w-full h-full object-cover project-image"
+          />
         </div>
         <a
           ref={hoverRef}
@@ -52,7 +77,14 @@ function ProjectCard({ project, index }) {
           onMouseLeave={onMouseLeave}
           aria-label={`View ${project.title} on GitHub`}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
             <path d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </a>
@@ -66,8 +98,15 @@ function ProjectCard({ project, index }) {
         <p className="project-card__desc">{project.desc}</p>
         <div className="project-card__tags">
           {project.tags.map((t) => (
-            <span key={t} className="tag">{t}</span>
+            <span key={t} className="tag">
+              {t}
+            </span>
           ))}
+        </div>
+        <div className="demo__cta-group">
+          <CTAButton href={project.githubUrl} outline>
+            View Git Repo
+          </CTAButton>
         </div>
       </div>
     </article>

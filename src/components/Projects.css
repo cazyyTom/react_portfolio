@@ -44,6 +44,16 @@
 .demo-card:hover .demo-card__placeholder {
   transform: scale(1.05);
 }
+.work-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  /* Soft gradient fade at the bottom to blend with background */
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
 
 .demo-card__view-btn {
   position: absolute;

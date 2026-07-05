@@ -40,7 +40,6 @@ function DemoCard({ demo, index }) {
       style={{ "--delay": `${index * 0.08}s` }}
     >
       <div className="demo-card__media-wrap">
-        {/* Replace this placeholder with an <img src="..."> or <video src="..." controls> */}
         <div className="demo-card__placeholder">
           {demo.type === "video" ? (
             <svg
@@ -57,7 +56,7 @@ function DemoCard({ demo, index }) {
             <img
               src="/mountdiggers.jpg"
               alt="Devesh - fullStack developer"
-              className="hero-image"
+              className="w-full h-full object-cover work-image"
             />
           )}
         </div>
