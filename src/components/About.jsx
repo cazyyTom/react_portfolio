@@ -5,8 +5,15 @@ import "./About.css";
 const skills = [
   { label: "Frontend: React, Next.js, Tailwind CSS, HTML/CSS" },
   { label: "Backend: Typescript, Node.js, Express, REST APIs" },
+  {
+    label:
+      "AI/Automation: Vercel AI SDK, RAG Pipelines, Pinecone, Inngest",
+  },
   { label: "Databases: PostgreSQL, MongoDB" },
-  { label: "Tools: Git, Vercel, Postman, Docker (basic), Appwrite" },
+  {
+    label:
+      "Tools: Git, Vercel, Postman, Docker (basic), Appwrite, GitHub API/Webhooks",
+  },
 ];
 
 function SkillItem({ skill, index }) {
