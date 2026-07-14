@@ -148,6 +148,48 @@
   border-bottom: 1px solid var(--border-color);
 }
 .mobile-menu a:last-child { border-bottom: none; }
+.header__email-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-menu__email-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.copy-email-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.copy-email-btn:hover {
+  background: rgba(128, 128, 128, 0.15);
+}
+
+.copy-email-btn.is-copied {
+  width: auto;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  color: #22c55e; /* adjust to your accent color */
+}
+
+.copy-email-btn__label {
+  white-space: nowrap;
+}
 
 @media (max-width: 1024px) {
   .header { padding: 0 2rem; }
