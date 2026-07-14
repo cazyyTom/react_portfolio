@@ -3,11 +3,13 @@ import { useMagneticHover } from "../hooks/useMagneticHover";
 import ThemeToggle from "./ThemeToggle";
 import "./Header.css";
 
+const EMAIL = "tomardevesh012@gmail.com";
+
 function NavLink({ href, children }) {
   const { ref, onMouseMove, onMouseLeave } = useMagneticHover(0.3);
   return (
-    <a
-      ref={ref}
+    
+    <a  ref={ref}
       href={href}
       className="nav-link"
       onMouseMove={onMouseMove}
@@ -15,6 +17,60 @@ function NavLink({ href, children }) {
     >
       {children}
     </a>
+  );
+}
+
+function CopyEmailButton({ className = "" }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      // Fallback for older browsers / non-secure contexts
+      const textarea = document.createElement("textarea");
+      textarea.value = EMAIL;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
+    setCopied(true);
+  };
+
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  return (
+    <button
+      type="button"
+      className={`copy-email-btn${copied ? " is-copied" : ""} ${className}`}
+      onClick={handleCopy}
+      aria-label="Copy email address"
+    >
+      {copied ? (
+        <span className="copy-email-btn__label">Copied!</span>
+      ) : (
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      )}
+    </button>
   );
 }
 
@@ -47,15 +103,19 @@ export default function Header() {
         {/* Right cluster */}
         <div className="header__right">
           <ThemeToggle />
-          <a
-            ref={ctaHover.ref}
-            href="mailto:tomardevesh012@gmail.com"
-            className="header__cta"
-            onMouseMove={ctaHover.onMouseMove}
-            onMouseLeave={ctaHover.onMouseLeave}
-          >
-            tomardevesh012@gmail.com
-          </a>
+
+          <div className="header__email-group">
+            <a
+              ref={ctaHover.ref}
+              href={`mailto:${EMAIL}`}
+              className="header__cta"
+              onMouseMove={ctaHover.onMouseMove}
+              onMouseLeave={ctaHover.onMouseLeave}
+            >
+              {EMAIL}
+            </a>
+            <CopyEmailButton />
+          </div>
 
           {/* Hamburger for mobile */}
           <button
@@ -74,7 +134,15 @@ export default function Header() {
         <a href="#work" onClick={() => setMenuOpen(false)}>Projects</a>
         <a href="#projects" onClick={() => setMenuOpen(false)}>Work Experience</a>
         <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-        <a href="mailto:tomardevesh012@gmail.com" onClick={() => setMenuOpen(false)}>tomardevesh012@gmail.com</a>
+        <div className="mobile-menu__email-row">
+          <a
+            href={`mailto:${EMAIL}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            {EMAIL}
+          </a>
+          <CopyEmailButton />
+        </div>
       </div>
     </header>
   );
