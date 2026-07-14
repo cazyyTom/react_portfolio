@@ -71,7 +71,7 @@ export default function About() {
             </div>
             <a
               ref={btnRef}
-              href="/resume.pdf"
+              href="/Devesh_Resume.pdf"
               className="about-bio__resume-btn"
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
