@@ -60,6 +60,7 @@ export default function Hero() {
   return (
     <section className="hero" id="home">
       <div className="hero__inner">
+        //Hii adding this comment to check if judgit working fine or not
         {/* Greeting line */}
         <p className="hero__greeting">
           <span className="hero__wave">👋</span>, my name is Devesh and I am a
