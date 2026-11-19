@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Light theme (default) */
+  color-scheme: light;
   --bg-primary: #ffffff;
   --bg-secondary: #fafafa;
   --bg-glass: rgba(255, 255, 255, 0.75);
@@ -17,10 +17,10 @@
   --border-color: #e5e5e5;
   --accent: #ff4d6d;
 
-  --footer-bg: #0a0a0a;
-  --footer-text: #ffffff;
-  --footer-muted: #888888;
-  --footer-border: #2a2a2a;
+  --footer-bg: #edeae5;
+  --footer-text: #221e1a;
+  --footer-muted: #5d5650;
+  --footer-border: #d1c8bd;
 
   --toggle-track: #eaeaea;
   --toggle-border: #d8d8d8;
@@ -32,6 +32,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg-primary: #0a0a0a;
   --bg-secondary: #111111;
   --bg-glass: rgba(10, 10, 10, 0.75);
@@ -105,6 +106,7 @@ button:focus-visible {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  :is(.theme-toggle, .footer__social-link, .footer__big-email) { transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

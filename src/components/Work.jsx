@@ -1,22 +1,6 @@
+import { useLayoutEffect, useRef } from "react";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
-import { useMagneticHover } from "../hooks/useMagneticHover";
 import "./Work.css";
-function CTAButton({ children, href, outline }) {
-  const { ref, onMouseMove, onMouseLeave } = useMagneticHover(0.3);
-  return (
-    <a
-      ref={ref}
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className={`demo__cta-btn${outline ? " demo__cta-btn--outline" : ""}`}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-    >
-      {children}
-    </a>
-  );
-}
 
 const projects = [
   {
@@ -63,66 +47,24 @@ const projects = [
 ];
 
 function ProjectCard({ project, index }) {
-  const ref = useRevealOnScroll(0.12);
-  const { ref: hoverRef, onMouseMove, onMouseLeave } = useMagneticHover(0.12);
-
   return (
-    <article
-      ref={ref}
-      className="project-card reveal-item"
-      style={{ "--delay": `${index * 0.1}s` }}
-    >
-      <div className="project-card__img-wrap">
-        <div className="project-card__img-placeholder">
-          <img
-            src={project.image}
-            alt="Devesh - fullStack developer"
-            className="w-full h-full object-cover project-image"
-          />
+    <article className="project-card" style={{ "--index": index }}>
+      <header className="project-card__header">
+        <span className="project-card__number">{String(index + 1).padStart(2, "0")}</span>
+        <div>
+          <p className="project-card__meta">{project.category} · {project.year}</p>
+          <h3>{project.title}</h3>
         </div>
-        <a
-          ref={hoverRef}
-          href={project.demoUrl}
-          className="project-card__view-btn"
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
-          aria-label={`View ${project.title} on GitHub`}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path d="M7 17L17 7M17 7H7M17 7v10" />
-          </svg>
-        </a>
-      </div>
+        <a className="project-card__action" href={project.demoUrl} target="_blank" rel="noreferrer">Live Demo</a>
+      </header>
       <div className="project-card__body">
-        <div className="project-card__meta">
-          <span className="project-card__category">{project.category}</span>
-          <span className="project-card__year">{project.year}</span>
-        </div>
-        <h3 className="project-card__title">{project.title}</h3>
-        <p className="project-card__desc">{project.desc}</p>
-        <div className="project-card__tags">
-          {project.tags.map((t) => (
-            <span key={t} className="tag">
-              {t}
-            </span>
-          ))}
-        </div>
-        <div className="demo__cta-group mb-1">
-          <CTAButton href={project.demoUrl} outline>
-            Live Demo
-          </CTAButton>
-        </div>
-        <div className="demo__cta-group">
-          <CTAButton href={project.githubUrl} outline>
-            View Git Repo
-          </CTAButton>
+        <a className="project-card__media" href={project.demoUrl} aria-label={`Open live demo of ${project.title}`}>
+          {project.image ? <img src={project.image} alt={`${project.title} screenshot`} /> : <strong>{project.title}</strong>}
+        </a>
+        <div className="project-card__details">
+          <p>{project.desc}</p>
+          <ul>{project.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+          <a className="project-card__action" href={project.githubUrl} target="_blank" rel="noreferrer">View Git Repo</a>
         </div>
       </div>
     </article>
@@ -130,25 +72,43 @@ function ProjectCard({ project, index }) {
 }
 
 export default function Work() {
-  const headRef = useRevealOnScroll(0.2);
+  const heading = useRevealOnScroll(.2);
+  const stack = useRef(null);
+  useLayoutEffect(() => {
+    const list = stack.current;
+    const measure = () => {
+      // Keep long descriptions and all actions reachable on short screens and at zoom.
+      const top = parseFloat(getComputedStyle(list).scrollPaddingTop);
+      const step = parseFloat(getComputedStyle(list).getPropertyValue("--stack-step"));
+      const tallest = Math.max(...Array.from(list.children, card => card.offsetHeight));
+      const fits = top + (list.children.length - 1) * step + tallest + 16 <= window.innerHeight;
+      list.classList.toggle("can-stack", fits);
+    };
+    measure();
+    const resize = new ResizeObserver(measure);
+    Array.from(list.children).forEach(card => resize.observe(card));
+    window.addEventListener("resize", measure);
+    return () => {
+      resize.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   return (
-    <section className="work-section" id="work">
+    <section className="work-section" id="work" aria-labelledby="work-title">
       <div className="work-section__inner">
-        <div className="section-header reveal-item" ref={headRef}>
-          <span className="section-eyebrow">Selected Work</span>
-          <h2 className="section-title">
-            Things I've<br />
-            <em>built &amp; shipped.</em>
-          </h2>
-          <a href="https://github.com/cazyyTom" target="_blank" rel="noreferrer" className="section-link">
-            View GitHub →
-          </a>
-        </div>
-        <div className="work-grid">
-          {projects.map((p, i) => (
-            <ProjectCard key={p.id} project={p} index={i} />
-          ))}
+        <header className="work-heading" ref={heading}>
+          <p>Selected Work</p>
+          <h2 id="work-title">Projects</h2>
+          <div><span>Things I've built &amp; shipped.</span>
+            <a href="https://github.com/cazyyTom" target="_blank" rel="noreferrer">View GitHub →</a>
+          </div>
+        </header>
+        <div className="work-grid" ref={stack}
+          onFocus={event => {
+            if (event.target.matches(":focus-visible")) event.target.scrollIntoView({ block: "center", behavior: "instant" });
+          }}>
+          {projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
         </div>
       </div>
     </section>

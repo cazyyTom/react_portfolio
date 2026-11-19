@@ -1,24 +1,13 @@
-import { useState, useEffect } from "react";
-import { useMagneticHover } from "../hooks/useMagneticHover";
+import { useState, useEffect, useRef } from "react";
+import { EMAIL } from "../constants";
 import ThemeToggle from "./ThemeToggle";
 import "./Header.css";
 
-const EMAIL = "tomardevesh012@gmail.com";
-
-function NavLink({ href, children }) {
-  const { ref, onMouseMove, onMouseLeave } = useMagneticHover(0.3);
-  return (
-    
-    <a  ref={ref}
-      href={href}
-      className="nav-link"
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-    >
-      {children}
-    </a>
-  );
-}
+const navigation = [
+  { href: "#work", label: "Projects" },
+  { href: "#projects", label: "Work Experience" },
+  { href: "#about", label: "About" },
+];
 
 function CopyEmailButton({ className = "" }) {
   const [copied, setCopied] = useState(false);
@@ -77,73 +66,62 @@ function CopyEmailButton({ className = "" }) {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const ctaHover = useMagneticHover(0.25);
+  const menuButton = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const closeOnResize = () => setMenuOpen(false);
+    document.addEventListener("keydown", closeOnEscape);
+    desktop.addEventListener("change", closeOnResize);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      desktop.removeEventListener("change", closeOnResize);
+    };
+  }, [menuOpen]);
+
   return (
     <header className={`header${scrolled ? " header--scrolled" : ""}`}>
       <div className="header__inner">
-        {/* Logo */}
-        <a href="/" className="logo">
-          Devesh<span className="logo__dot">.</span>
-        </a>
-
-        {/* Desktop nav */}
+        <a href="/" className="logo">Devesh<span className="logo__dot">.</span></a>
         <nav className="nav" aria-label="Main navigation">
-          <NavLink href="#work">Projects</NavLink>
-          <NavLink href="#projects">Work Experience</NavLink>
-          <NavLink href="#about">About</NavLink>
+          {navigation.map(({ href, label }) => <a key={href} href={href}>{label}</a>)}
         </nav>
-
-        {/* Right cluster */}
         <div className="header__right">
-          <ThemeToggle />
-
           <div className="header__email-group">
-            <a
-              ref={ctaHover.ref}
-              href={`mailto:${EMAIL}`}
-              className="header__cta"
-              onMouseMove={ctaHover.onMouseMove}
-              onMouseLeave={ctaHover.onMouseLeave}
-            >
-              {EMAIL}
-            </a>
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             <CopyEmailButton />
           </div>
-
-          {/* Hamburger for mobile */}
-          <button
-            className={`hamburger${menuOpen ? " is-open" : ""}`}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            <span />
-            <span />
+          <ThemeToggle />
+          <button ref={menuButton} type="button" className="hamburger"
+            aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label="Toggle menu"
+            onClick={() => setMenuOpen(!menuOpen)}>
+            <span /><span />
           </button>
         </div>
       </div>
-
-      {/* Mobile drawer */}
-      <div className={`mobile-menu${menuOpen ? " is-open" : ""}`}>
-        <a href="#work" onClick={() => setMenuOpen(false)}>Projects</a>
-        <a href="#projects" onClick={() => setMenuOpen(false)}>Work Experience</a>
-        <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+      <nav id="mobile-nav" className="mobile-menu" aria-label="Mobile navigation" hidden={!menuOpen}>
+        {navigation.map(({ href, label }) => (
+          <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+        ))}
         <div className="mobile-menu__email-row">
-          <a
-            href={`mailto:${EMAIL}`}
-            onClick={() => setMenuOpen(false)}
-          >
-            {EMAIL}
-          </a>
+          <a href={`mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>{EMAIL}</a>
           <CopyEmailButton />
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

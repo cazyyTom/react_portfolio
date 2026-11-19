@@ -1,19 +1,17 @@
 import { useTheme } from "../context/ThemeContext";
-import { useMagneticHover } from "../hooks/useMagneticHover";
 import "./ThemeToggle.css";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
-  const { ref, onMouseMove, onMouseLeave } = useMagneticHover(0.4);
 
   return (
     <button
-      ref={ref}
+      type="button"
+      role="switch"
+      aria-checked={theme === "dark"}
       className="theme-toggle"
       onClick={toggleTheme}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      aria-label="Dark mode"
       title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       <span className="theme-toggle__track">
