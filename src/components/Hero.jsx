@@ -35,7 +35,7 @@ function OrbitalArtwork() {
         </svg>
       </div>
       <img className="hero__portrait" src={portrait} alt="Devesh - fullStack developer"
-        width="1537" height="1600" fetchPriority="high" draggable="false" />
+        width="1536" height="1024" fetchPriority="high" draggable="false" />
     </div>
   );
 }

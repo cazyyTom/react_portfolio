@@ -10,6 +10,11 @@ export function useRevealOnScroll(threshold = 0.15) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (!("IntersectionObserver" in window)) {
+      el.classList.add("is-visible");
+      return;
+    }
+    el.classList.add("reveal-ready");
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -20,7 +25,10 @@ export function useRevealOnScroll(threshold = 0.15) {
       { threshold }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      el.classList.remove("reveal-ready");
+    };
   }, [threshold]);
 
   return ref;

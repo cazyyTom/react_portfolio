@@ -92,6 +92,7 @@
 }
 .hero__scroll:hover { border-color: #ff984f; color: #ff984f; }
 .hero__art {
+  container-type: size;
   position: absolute;
   overflow: hidden;
   pointer-events: none;
@@ -100,12 +101,12 @@
 }
 .hero__portrait {
   position: absolute;
-  bottom: -1.1rem;
-  left: 0;
-  width: 110%;
-  height: 98%;
-  object-fit: contain;
-  object-position: center bottom;
+  bottom: -1rem;
+  left: 55%;
+  width: min(145cqw, 165cqh);
+  height: auto;
+  /* Align the subject's baseline, above the PNG's transparent bottom padding. */
+  translate: -50% 10.5%;
   transform-origin: 50% 90%;
   filter: sepia(.22) contrast(1.11) drop-shadow(4px 8px 12px #28150855);
 }
@@ -155,7 +156,6 @@
   .hero__title { font-size: clamp(2.7rem, 11.8vw, 5.4rem); }
   .hero__actions { margin-top: 1.35rem; }
   .hero__art { position: relative; inset: auto; width: 100%; height: clamp(17rem, 74vw, 26rem); }
-  .hero__portrait { height: 115%; bottom: -.75rem; }
   .hero__scroll { left: var(--hero-inset); bottom: 1.2rem; }
   .hero__tech--react { top: 11%; left: 21%; }
   .hero__tech--tailwind { top: 18%; }

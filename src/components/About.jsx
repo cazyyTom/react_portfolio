@@ -12,10 +12,11 @@ const skills = [
 
 export default function About() {
   const introRef = useRevealOnScroll(0.12);
+  const skillsRef = useRevealOnScroll(0.12);
 
   return (
     <section className="about-section" id="about" aria-labelledby="about-title">
-      <div className="about-intro" ref={introRef}>
+      <div className="about-intro scroll-reveal" ref={introRef}>
         <div className="about-ornaments" aria-hidden="true">
           <span className="about-flower" />
           <span className="about-crystal" />
@@ -39,21 +40,23 @@ export default function About() {
           <a className="about-resume" href="/Devesh_Resume.pdf" download>Download Resume</a>
         </div>
       </div>
-      <div className="about-bio__stats">
-        <div className="stat">
-          <span className="stat__num">10+</span>
-          <span className="stat__label">Projects built</span>
+      <div className="scroll-reveal" ref={skillsRef}>
+        <div className="about-bio__stats">
+          <div className="stat">
+            <span className="stat__num">10+</span>
+            <span className="stat__label">Projects built</span>
+          </div>
+          <div className="stat">
+            <span className="stat__num">Fresher</span>
+            <span className="stat__label">Open to intern roles</span>
+          </div>
+          <div className="stat">
+            <span className="stat__num">Remote</span>
+            <span className="stat__label">Available anywhere</span>
+          </div>
         </div>
-        <div className="stat">
-          <span className="stat__num">Fresher</span>
-          <span className="stat__label">Open to intern roles</span>
-        </div>
-        <div className="stat">
-          <span className="stat__num">Remote</span>
-          <span className="stat__label">Available anywhere</span>
-        </div>
+        <SkillMarquee groups={skills} />
       </div>
-      <SkillMarquee groups={skills} />
     </section>
   );
 }

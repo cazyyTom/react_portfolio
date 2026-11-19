@@ -47,8 +47,9 @@ const projects = [
 ];
 
 function ProjectCard({ project, index }) {
+  const cardRef = useRevealOnScroll(0.08);
   return (
-    <article className="project-card" style={{ "--index": index }}>
+    <article ref={cardRef} className="project-card scroll-reveal" style={{ "--index": index }}>
       <header className="project-card__header">
         <span className="project-card__number">{String(index + 1).padStart(2, "0")}</span>
         <div>
@@ -97,7 +98,7 @@ export default function Work() {
   return (
     <section className="work-section" id="work" aria-labelledby="work-title">
       <div className="work-section__inner">
-        <header className="work-heading" ref={heading}>
+        <header className="work-heading scroll-reveal" ref={heading}>
           <p>Selected Work</p>
           <h2 id="work-title">Projects</h2>
           <div><span>Things I've built &amp; shipped.</span>
