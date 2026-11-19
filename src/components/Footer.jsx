@@ -41,7 +41,8 @@ function BigLink({ children, href }) {
 }
 
 export default function Footer() {
-  const { ref: emailRef, onMouseMove, onMouseLeave } = useMagneticHover(0.18);
+  const [mailbox, domain] = EMAIL.split("@");
+  const { ref: emailRef, onMouseMove, onMouseLeave } = useMagneticHover(0.018);
   const { copied, onClick: onEmailClick } = useCopyEmail();
   const year = new Date().getFullYear();
 
@@ -58,25 +59,11 @@ export default function Footer() {
             onMouseLeave={onMouseLeave}
             onClick={onEmailClick}
           >
-            {copied ? "Copied ✓" : EMAIL}
+            {copied ? "Copied ✓" : <>{mailbox}<wbr /><span className="footer__domain">@{domain}</span></>}
           </a>
         </div>
 
         <div className="footer__bottom">
-          <div className="footer__col">
-            <span className="footer__col-title">Sitemap</span>
-            <a href="#work">Projects</a>
-            <a href="#projects">Work Experience</a>
-            <a href="#about">About</a>
-          </div>
-          <div className="footer__col">
-            <span className="footer__col-title">Social</span>
-            {socials.map((s) => (
-              <BigLink key={s.label} href={s.href}>
-                {s.label}
-              </BigLink>
-            ))}
-          </div>
           <div className="footer__col footer__col--logo">
             <span className="logo">
               Devesh<span className="logo__dot">.</span>
@@ -85,6 +72,20 @@ export default function Footer() {
               Full stack developer & fresher, based in IIT Roorkee, India — open
               to remote internship opportunities.
             </p>
+          </div>
+          <nav aria-label="Footer navigation" className="footer__col">
+            <span className="footer__col-title">Sitemap</span>
+            <a href="#work">Projects</a>
+            <a href="#projects">Work Experience</a>
+            <a href="#about">About</a>
+          </nav>
+          <div className="footer__col">
+            <span className="footer__col-title">Social</span>
+            {socials.map((s) => (
+              <BigLink key={s.label} href={s.href}>
+                {s.label}
+              </BigLink>
+            ))}
           </div>
         </div>
 
