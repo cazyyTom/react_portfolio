@@ -16,13 +16,14 @@ export function createSceneManager(canvas, loadingManager) {
   canvas.hidden = !renderer;
 
   // A section owns the resources it attaches to its group and releases them in dispose.
-  function register(element, { group = new Group(), onEnter, onLeave, onProgress, dispose } = {}) {
+  function register(element, { group = new Group(), onEnter, onLeave, onProgress, onFrame, dispose } = {}) {
     group.name = element.dataset.section;
     group.visible = false;
     scene.add(group);
     function update(trigger) {
       if (group.visible !== trigger.isActive) {
         group.visible = trigger.isActive;
+        renderer?.invalidate();
         if (group.visible) onEnter?.(group);
         else onLeave?.(group);
       }
@@ -34,15 +35,23 @@ export function createSceneManager(canvas, loadingManager) {
       onUpdate: update, onRefresh: update,
     });
     update(trigger);
-    sections.push({ trigger, group, dispose });
+    sections.push({ trigger, group, onFrame, dispose });
     return group;
   }
 
   return {
-    loadingManager,
+    loadingManager, canvas, camera, scene,
+    hasWebGL: Boolean(renderer),
     register,
-    render() {
-      renderer?.draw(scene, sections.some(({ group }) => group.visible && group.children.length > 0));
+    render(time, deltaMs) {
+      if (!renderer || renderer.contextLost()) return;
+      let needsFrame = false;
+      for (const section of sections) {
+        if (section.group.visible && section.group.children.length) {
+          if (section.onFrame?.(time, deltaMs) !== false) needsFrame = true;
+        }
+      }
+      renderer.draw(scene, needsFrame);
     },
     dispose() {
       for (const section of sections) {

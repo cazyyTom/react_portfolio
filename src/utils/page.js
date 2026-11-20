@@ -17,7 +17,7 @@ export function renderPage(content) {
         <a class="brand" href="${data.ui.home}">${data.ui.brand}</a>
         <nav aria-label="${data.ui.navigation}">${list(data.ui.nav, (item) => link(item))}</nav>
       </header>
-      <main>${hero(data.hero)}${about(data.about)}${skills(data.skills)}
+      <main>${hero(data.hero, data.ui.brand, data.skills.groups)}${about(data.about)}${skills(data.skills)}
         ${projects(data.projects)}${experience(data.experience)}</main>
       ${footer(data.footer, data.ui)}`,
   };

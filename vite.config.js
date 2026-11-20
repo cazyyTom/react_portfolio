@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
+import { avatarModelUrl } from "./build/avatar-model.js";
 import content from "./src/content.json";
 import { renderPage } from "./src/utils/page.js";
 
 export default defineConfig({
+  define: { __AVATAR_MODEL__: JSON.stringify(avatarModelUrl()) },
   build: {
     rolldownOptions: {
       output: {

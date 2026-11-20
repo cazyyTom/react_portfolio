@@ -51,12 +51,16 @@
       "href": "/Devesh_Resume.pdf"
     },
     "portrait": {
-      "src": "/me.png",
+      "src": "/hero-portrait.webp",
       "alt": "Devesh - fullStack developer"
     },
     "scroll": {
       "label": "Scroll to work",
       "href": "#work"
+    },
+    "contact": {
+      "label": "Contact me",
+      "href": "#contact"
     }
   },
   "about": {

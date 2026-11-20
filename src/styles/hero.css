@@ -1,0 +1,263 @@
+/* The name and orbit lines sit below the fixed canvas. Hero controls and the
+   following sections paint above it, keeping all navigation in the DOM. */
+#scene {
+  z-index: 1;
+}
+main > [data-section]:not(#home),
+footer[data-section] {
+  z-index: 2;
+}
+#home {
+  padding: calc(var(--header-offset) + clamp(1rem, 3vh, 2.4rem)) var(--gutter)
+    var(--space-4);
+  background: radial-gradient(
+    ellipse at 50% 43%,
+    #26232d 0%,
+    #161518 38%,
+    #101012 71%
+  );
+}
+.hero-layout {
+  max-width: 88rem;
+}
+.hero-meta,
+.hero-intro,
+.hero-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.hero-meta,
+.hero-links {
+  font-size: 0.875rem;
+}
+.hero-meta {
+  color: #c3c0c7;
+}
+.hero-meta > :last-child {
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+}
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.availability::before {
+  content: "";
+  width: 0.52em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #bbd9a8;
+  box-shadow: 0 0 0.6em #bbd9a86a;
+}
+.hero-stage {
+  position: relative;
+  height: clamp(24rem, 54svh, 36rem);
+}
+#hero-title {
+  position: absolute;
+  z-index: 0;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 900 clamp(4rem, 20.5vw, 20rem)/1 var(--display);
+  letter-spacing: -0.085em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--off-white);
+  margin-left: -0.03em;
+}
+.avatar-target {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 59%;
+  transform: translate(-50%, -50%);
+  height: 86%;
+  max-height: 27rem;
+  aspect-ratio: 11 / 12;
+  max-width: 61%;
+  touch-action: pan-y;
+  user-select: none;
+}
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.hero-live .portrait,
+.hero-live .hero-mark svg {
+  visibility: hidden;
+}
+.hero-live .avatar-target {
+  cursor: grab;
+}
+.hero-live .avatar-target:active {
+  cursor: grabbing;
+}
+.hero-orbits {
+  position: absolute;
+  inset: 7% 7% 5%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-orbits::before,
+.hero-orbits::after {
+  content: "";
+  position: absolute;
+  width: 94%;
+  height: 60%;
+  top: 22%;
+  left: 3%;
+  border: 1px solid #e6dfee18;
+  border-radius: 50%;
+  transform: rotate(-12deg);
+}
+.hero-orbits::after {
+  width: 73%;
+  left: 15%;
+  top: 30%;
+  height: 50%;
+  transform: rotate(16deg);
+  border-color: #e6dfee10;
+}
+.hero-mark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: clamp(2.4rem, 5.6vw, 5rem);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.hero-mark svg {
+  width: 100%;
+  height: 100%;
+  padding: 20%;
+  border-radius: 22%;
+  color: var(--ink);
+  background: var(--tile);
+  transform: rotate(var(--angle));
+}
+[data-mark="react"] {
+  left: 18%;
+  top: 48%;
+  --tile: #99ddee;
+  --ink: #143e4c;
+  --angle: -18deg;
+}
+[data-mark="tailwind"] {
+  left: 82%;
+  top: 49%;
+  --tile: #7970b8;
+  --ink: #f1e7ff;
+  --angle: 14deg;
+}
+[data-mark="git"] {
+  left: 30%;
+  top: 84%;
+  width: clamp(2.1rem, 4.3vw, 3.8rem);
+  --tile: #ed865f;
+  --ink: #733628;
+  --angle: 12deg;
+}
+[data-mark="vercel"] {
+  left: 72%;
+  top: 83%;
+  width: clamp(2rem, 4vw, 3.6rem);
+  --tile: #c4c8d2;
+  --ink: #20202d;
+  --angle: -16deg;
+}
+.hero-intro {
+  margin: clamp(1rem, 3vh, 2rem) auto var(--space-3);
+}
+.hero-intro p {
+  margin: 0;
+}
+.greeting {
+  font-size: clamp(1.05rem, 1.65vw, 1.55rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.28;
+}
+.location {
+  color: #aaa6b1;
+}
+.hero-contact {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75em 1.5em;
+  background: linear-gradient(115deg, #b32a72, #713ab5 55%, #385fc6);
+}
+.hero-links {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: #c6c3ca;
+}
+.hero-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.3rem;
+}
+.hero-links a {
+  text-decoration: none;
+}
+.hero-links a:hover {
+  text-decoration: underline;
+}
+.scroll-link {
+  white-space: nowrap;
+}
+.scroll-link::before {
+  content: "↓";
+  display: inline-block;
+  margin-right: 0.45rem;
+}
+@media (max-width: 42rem) {
+  .hero-stage {
+    height: clamp(19rem, 46svh, 26rem);
+  }
+  #hero-title {
+    top: 7%;
+    font-size: 21.5vw;
+  }
+  .avatar-target {
+    top: 57%;
+    max-width: 62%;
+    height: 76%;
+  }
+  [data-mark="react"] {
+    left: 10%;
+    top: 44%;
+  }
+  [data-mark="tailwind"] {
+    left: 91%;
+    top: 49%;
+  }
+  [data-mark="git"] {
+    left: 21%;
+    top: 82%;
+  }
+  [data-mark="vercel"] {
+    left: 82%;
+    top: 83%;
+  }
+  .hero-intro {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .hero-links {
+    align-items: flex-start;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-live .avatar-target {
+    cursor: auto;
+  }
+}

@@ -1,8 +1,5 @@
 [data-section] { position: relative; padding: var(--section-space) var(--gutter); }
 .container { width: min(100%, 78rem); margin-inline: auto; }
-#home { padding-top: calc(var(--section-space) + var(--header-offset)); }
-.hero-layout { display: grid; align-items: center; gap: var(--space-4); }
-.portrait { width: 100%; max-width: 34rem; justify-self: center; }
 .eyebrow { font-size: .9rem; font-weight: 700; letter-spacing: .04em; }
 .lead, .stats dd { font-size: clamp(1.4rem, 2vw, 2rem); }
 .actions, .tags, .stats { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
@@ -23,6 +20,5 @@
 .email { font-size: clamp(1.6rem, 4vw, 4rem); overflow-wrap: anywhere; margin-bottom: var(--space-2); }
 footer small { display: block; margin-top: var(--space-4); }
 @media (min-width: 48rem) {
-  .hero-layout { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
   .skill-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
