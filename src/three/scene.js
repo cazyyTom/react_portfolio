@@ -44,6 +44,15 @@ export function createSceneManager(canvas, loadingManager) {
     hasWebGL: Boolean(renderer),
     setResolutionScale: (scale) => renderer?.setResolutionScale(scale),
     register,
+    unregister(group) {
+      const index = sections.findIndex(section => section.group === group);
+      if (index < 0) return;
+      const [section] = sections.splice(index, 1);
+      section.trigger.kill();
+      section.dispose?.(group);
+      scene.remove(group);
+      renderer?.invalidate();
+    },
     render(time, deltaMs) {
       if (!renderer || renderer.contextLost()) return;
       let needsFrame = false;

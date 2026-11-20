@@ -12,6 +12,8 @@ import { initProjectsMotion } from "./utils/projects-motion.js";
 
 import { initExperienceMotion } from "./utils/experience-motion.js";
 
+import { observeScenes } from "./utils/section-scenes.js";
+
 const controller = new AbortController();
 const { signal } = controller;
 const progress = document.querySelector("#preloader");
@@ -30,46 +32,14 @@ initContact(signal);
 
 const portrait = document.querySelector(".portrait");
 loader.track(portrait.currentSrc || portrait.src, portrait.decode()).catch(console.warn);
-loader.track("scene", import("./three/scene.js").then(async ({ createSceneManager }) => {
-  if (signal.aborted) return;
-  scene = createSceneManager(document.querySelector("#scene"), loader.manager);
-  for (const element of document.querySelectorAll("[data-section]")) {
-    let options;
-    if (scene.hasWebGL && element.dataset.section === "hero") {
-      const { createHero } = await import("./three/hero.js");
-      if (signal.aborted) return;
-      options = await createHero(element, scene, signal);
-      if (signal.aborted) return;
-    }
-    if (scene.hasWebGL && element.dataset.section === "about") {
-      const {createAbout} = await import("./three/about.js");
-      if (signal.aborted) return;
-      options=createAbout(element,scene,signal);
-    }
-    if (scene.hasWebGL && element.dataset.section === "projects") {
-      const { createProjectGlow } = await import("./three/projects.js");
-      if (signal.aborted) return;
-      options = createProjectGlow(element, scene);
-    }
-    if (scene.hasWebGL && element.dataset.section === "footer") {
-      const observer = new IntersectionObserver(async ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-        try {
-          const { createFooter } = await import("./three/footer.js");
-          if (!signal.aborted) scene.register(element, createFooter(element, scene, signal));
-        } catch (error) {
-          console.warn(error);
-        }
-      }, {rootMargin:"450px"});
-      observer.observe(element);
-      signal.addEventListener("abort", () => observer.disconnect(), {once:true});
-      continue;
-    }
-    scene.register(element, options);
-  }
-  ScrollTrigger.refresh();
-})).catch(console.warn);
+let enginePromise;
+observeScenes(() => {
+  enginePromise ??= loader.track("scene", import("./three/scene.js").then(({createSceneManager}) => {
+    if (!signal.aborted) scene = createSceneManager(document.querySelector("#scene"), loader.manager);
+    return scene;
+  }));
+  return enginePromise;
+}, signal);
 
 document.fonts.ready.then(() => {
   if (!signal.aborted) ScrollTrigger.refresh();

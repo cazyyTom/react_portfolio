@@ -29,7 +29,8 @@
         "label": "Contact",
         "href": "#contact"
       }
-    ]
+    ],
+    "skip": "Skip to main content"
   },
   "hero": {
     "availability": "Open to remote internships",
@@ -172,7 +173,7 @@
           "href": "https://github.com/cazyyTom/JudGit"
         },
         "image": {
-          "src": "/JudGit.jpg",
+          "src": "/JudGit.webp",
           "alt": "JudGit - AI-Powered GitHub Code Review Platform screenshot",
           "linkLabel": "Open live demo of JudGit - AI-Powered GitHub Code Review Platform",
           "width": 1195,
@@ -200,7 +201,7 @@
           "href": "https://github.com/cazyyTom/smartsolve"
         },
         "image": {
-          "src": "/QnA.jpg",
+          "src": "/QnA.webp",
           "alt": "SmartSolve - AI QnA Platform screenshot",
           "linkLabel": "Open live demo of SmartSolve - AI QnA Platform",
           "width": 1097,
@@ -229,7 +230,7 @@
           "href": "https://github.com/cazyyTom/product_management"
         },
         "image": {
-          "src": "/pbm.jpg",
+          "src": "/pbm.webp",
           "alt": "Product Basecamp Management screenshot",
           "linkLabel": "Open live demo of Product Basecamp Management",
           "width": 1065,
@@ -255,7 +256,7 @@
           "href": "https://www.mountdiggers.com/"
         },
         "image": {
-          "src": "/mountdiggers.jpg",
+          "src": "/mountdiggers.webp",
           "alt": "Mount Diggers website",
           "linkLabel": "Open Web Developer, Mount Diggers."
         }
@@ -264,7 +265,10 @@
   },
   "footer": {
     "title": "LET'S GET IN TOUCH",
-    "backToTop": { "label": "Back to top", "href": "#home" },
+    "backToTop": {
+      "label": "Back to top",
+      "href": "#home"
+    },
     "availability": "Open to remote internships",
     "email": "tomardevesh012@gmail.com",
     "copy": "Copy email address",

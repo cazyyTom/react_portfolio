@@ -37,7 +37,7 @@ export function initExperienceMotion() {
     });
     gsap.from(section.querySelector("h2"), {
       yPercent: 18,
-      opacity: 0.18,
+      opacity: 0.68,
       clipPath: "inset(0 0 62% 0)",
       ease: "none",
       scrollTrigger: {

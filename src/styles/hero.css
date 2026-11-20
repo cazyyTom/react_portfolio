@@ -261,3 +261,11 @@ footer[data-section] {
     cursor: auto;
   }
 }
+@media (max-width:48rem), (pointer:coarse) {
+  .hero-mark[data-mark="git"], .hero-mark[data-mark="vercel"] { display:none; }
+  .avatar-target { touch-action:auto; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  #home:not(.hero-live) .portrait { animation: portrait-sway 5s ease-in-out infinite alternate; }
+  @keyframes portrait-sway { from {transform:translateY(2px) rotate(-.7deg)} to {transform:translateY(-3px) rotate(.7deg)} }
+}

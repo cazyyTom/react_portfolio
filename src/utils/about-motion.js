@@ -60,7 +60,7 @@ export function initAboutMotion() {
           );
           gsap.from(p.children, {
             y: 14,
-            opacity: 0.15,
+            opacity: 0.68,
             filter: "blur(3px)",
             stagger: 0.15,
             ease: "none",

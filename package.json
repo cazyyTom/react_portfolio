@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vercel deploy --prod",
+    "audit:content": "python3 scripts/audit-content.py"
   },
   "dependencies": {
     "gsap": "^3.15.1",

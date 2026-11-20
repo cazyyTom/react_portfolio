@@ -14,7 +14,7 @@ function experienceRow(job) {
         ${job.bullets?.length ? `<ul>${list(job.bullets, (text) => `<li>${text}</li>`)}</ul>` : ""}
         ${
           job.website
-            ? `<a class="experience-site" href="${job.website.href}" aria-label="${job.image?.linkLabel || job.website.label}">
+            ? `<a class="experience-site" href="${job.website.href}" aria-label="${job.website.label}${job.image?.linkLabel ? ` — ${job.image.linkLabel}` : ""}">
           ${job.image ? `<img src="${job.image.src}" alt="${job.image.alt}" width="1350" height="637" loading="lazy" decoding="async">` : ""}
           <span>${job.website.label}</span>
         </a>`

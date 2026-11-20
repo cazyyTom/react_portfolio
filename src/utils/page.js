@@ -11,13 +11,14 @@ export function renderPage(content) {
   return {
     meta: `<title>${data.meta.title}</title>
       <meta name="description" content="${data.meta.description}">`,
-    body: `<canvas id="scene" aria-hidden="true"></canvas>
+    body: `<a class="skip-link" href="#main-content">${data.ui.skip}</a>
+      <canvas id="scene" aria-hidden="true"></canvas>
       <progress id="preloader" max="1" value="0" aria-label="${data.ui.loading}" hidden></progress>
       <header class="site-header">
         <a class="brand" href="${data.ui.home}">${data.ui.brand}</a>
         <nav aria-label="${data.ui.navigation}">${list(data.ui.nav, (item) => link(item))}</nav>
       </header>
-      <main>${hero(data.hero, data.ui.brand, data.skills.groups)}${about(data.about, data.hero.contact)}${skills(data.skills)}
+      <main id="main-content" tabindex="-1">${hero(data.hero, data.ui.brand, data.skills.groups)}${about(data.about, data.hero.contact)}${skills(data.skills)}
         ${projects(data.projects)}${experience(data.experience)}</main>
       ${footer(data.footer, data.ui)}`,
   };

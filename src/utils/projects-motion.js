@@ -9,7 +9,7 @@ export function initProjectsMotion() {
   const media = gsap.matchMedia();
   media.add("(prefers-reduced-motion: no-preference)", () => {
     gsap.from(section.querySelector("h2"), {
-      opacity: 0.12,
+      opacity: 0.68,
       scale: 0.84,
       ease: "none",
       scrollTrigger: {
