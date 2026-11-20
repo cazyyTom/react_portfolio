@@ -1,42 +1,9 @@
-# Devesh — Portfolio (React + Vite)
+# Devesh — Portfolio
 
-A fresher-focused developer portfolio built with React + Vite, vanilla CSS (CSS variables for theming), and zero UI libraries.
+Run `npm install` and `npm run dev` to start Vite. Use `npm run lint` and `npm run build` to check the project, then `npm run preview` to serve the production build.
 
-## Getting started
+Edit portfolio copy, metadata and links in `src/content.json`. Vite renders the six templates in `src/sections/` into HTML before sending the page to the browser. Existing links to `#work` open Projects and links to `#projects` open Work Experience.
 
-```bash
-npm install
-npm run dev
-```
+The browser entry is `src/main.js`. The GSAP ticker advances Lenis and draws the shared Three.js scene. A section can pass a group and optional `onEnter(group)`, `onLeave(group)`, `onProgress(progress, group)` and `dispose(group)` callbacks to the scene manager's `register(element, options)`. Use the shared loading manager for scene assets and release section-owned GPU resources in its dispose callback.
 
-Open the printed local URL (usually `http://localhost:5173`).
-
-To build for production:
-
-```bash
-npm run build
-npm run preview
-```
-
-## What's inside
-
-```
-src/
-  context/
-    ThemeContext.jsx     -> theme state (defaults to dark), persisted to localStorage
-  hooks/
-    useMagneticHover.js  -> cursor-follow "magnetic" hover effect (buttons, links)
-    useRevealOnScroll.js -> IntersectionObserver-based fade/slide-in on scroll
-  components/
-    Header.jsx / .css    -> sticky nav, logo, theme toggle, CTA, mobile hamburger menu
-    Hero.jsx / .css      -> big typographic headline + overlapping photo with gradient fade
-    Work.jsx / .css      -> project grid (placeholder cards) -> links out to GitHub
-    Projects.jsx / .css  -> project demo grid for screenshots / demo videos
-    About.jsx / .css     -> bio, stats, tech-stack list (no percentages), resume download
-    Footer.jsx / .css    -> big email CTA, sitemap, socials
-    ThemeToggle.jsx/.css -> the light/dark switch component
-  index.css              -> CSS custom properties for both themes
-  App.jsx                -> composes everything inside <ThemeProvider>
-```
-
-
+Apply `.light-panel` to give a section a light, rounded surface. The panel transition runs on fine pointers with motion enabled. Reduced-motion users get native scrolling, and the HTML remains usable without WebGL or JavaScript.

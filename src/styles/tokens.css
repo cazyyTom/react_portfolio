@@ -1,0 +1,21 @@
+:root {
+  --black: #101012;
+  --off-white: #f7f6f4;
+  --pink: #b32f70;
+  --purple: #7041c8;
+  --blue: #315ec9;
+  --gradient: linear-gradient(105deg, var(--pink), var(--purple) 52%, var(--blue));
+  --line: color-mix(in srgb, currentColor 23%, transparent);
+  --display: "Archivo Black", "Arial Black", system-ui, sans-serif;
+  --body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --gutter: clamp(1rem, 5vw, 5rem);
+  --section-space: clamp(4rem, 8vw, 8rem);
+  --radius: 1.25rem;
+  --panel-radius: clamp(1.75rem, 5vw, 5rem);
+  --pill: 100vmax;
+  --header-offset: 5rem;
+}
