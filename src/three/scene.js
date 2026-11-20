@@ -42,6 +42,7 @@ export function createSceneManager(canvas, loadingManager) {
   return {
     loadingManager, canvas, camera, scene,
     hasWebGL: Boolean(renderer),
+    setResolutionScale: (scale) => renderer?.setResolutionScale(scale),
     register,
     render(time, deltaMs) {
       if (!renderer || renderer.contextLost()) return;

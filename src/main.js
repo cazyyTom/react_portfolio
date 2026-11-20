@@ -51,6 +51,21 @@ loader.track("scene", import("./three/scene.js").then(async ({ createSceneManage
       if (signal.aborted) return;
       options = createProjectGlow(element, scene);
     }
+    if (scene.hasWebGL && element.dataset.section === "footer") {
+      const observer = new IntersectionObserver(async ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        try {
+          const { createFooter } = await import("./three/footer.js");
+          if (!signal.aborted) scene.register(element, createFooter(element, scene, signal));
+        } catch (error) {
+          console.warn(error);
+        }
+      }, {rootMargin:"450px"});
+      observer.observe(element);
+      signal.addEventListener("abort", () => observer.disconnect(), {once:true});
+      continue;
+    }
     scene.register(element, options);
   }
   ScrollTrigger.refresh();

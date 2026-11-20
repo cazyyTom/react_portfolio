@@ -7,6 +7,8 @@ export function createRenderer(canvas, camera) {
 
   const renderer = new WebGLRenderer({ canvas, context, ...options });
   renderer.setClearColor(0x000000, 0);
+  let resolutionScale = 1;
+  const pixelRatio = () => Math.min(window.devicePixelRatio || 1, 2) * resolutionScale;
   let needsRender = true;
   let lost = false;
   const onLost = () => { lost = true; };
@@ -15,7 +17,7 @@ export function createRenderer(canvas, camera) {
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     if (!width || !height) return;
-    renderer.setDrawingBufferSize(width, height, Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setDrawingBufferSize(width, height, pixelRatio());
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     needsRender = true;
@@ -29,8 +31,9 @@ export function createRenderer(canvas, camera) {
   return {
     contextLost: () => lost,
     invalidate() { needsRender = true; },
+    setResolutionScale(scale) { resolutionScale = scale; },
     draw(scene, animated) {
-      if (renderer.getPixelRatio() !== Math.min(window.devicePixelRatio || 1, 2)) size();
+      if (renderer.getPixelRatio() !== pixelRatio()) size();
       if (!needsRender && !animated) return;
       renderer.render(scene, camera);
       needsRender = false;

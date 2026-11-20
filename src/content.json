@@ -263,6 +263,8 @@
     ]
   },
   "footer": {
+    "title": "LET'S GET IN TOUCH",
+    "backToTop": { "label": "Back to top", "href": "#home" },
     "availability": "Open to remote internships",
     "email": "tomardevesh012@gmail.com",
     "copy": "Copy email address",
