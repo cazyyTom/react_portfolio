@@ -31,12 +31,13 @@ export function startLoop(render) {
   // Lenis consumes milliseconds; GSAP's ticker supplies seconds.
   const scroll = (seconds) => lenis?.raf(seconds * 1000);
   gsap.ticker.add(scroll, false, true);
-  gsap.ticker.add(render);
+  const draw = (time, deltaMs) => render(time, deltaMs, lenis?.velocity || 0);
+  gsap.ticker.add(draw);
   document.addEventListener("click", navigate);
   return () => {
     document.removeEventListener("click", navigate);
     gsap.ticker.remove(scroll);
-    gsap.ticker.remove(render);
+    gsap.ticker.remove(draw);
     media.revert();
   };
 }

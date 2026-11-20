@@ -5,12 +5,20 @@ import { initLightPanels } from "./utils/light-panel.js";
 import { createPreloader } from "./utils/preloader.js";
 import { initContact } from "./utils/contact.js";
 
+import { initAboutMotion } from "./utils/about-motion.js";
+import { initMarquee } from "./utils/skill-marquee.js";
+
 const controller = new AbortController();
 const { signal } = controller;
 const progress = document.querySelector("#preloader");
 const loader = createPreloader(progress);
 let scene;
-const stopLoop = startLoop((time, deltaMs) => scene?.render(time, deltaMs));
+const marquee = initMarquee(signal);
+const stopLoop = startLoop((time, deltaMs, velocity) => {
+  marquee(deltaMs, velocity);
+  scene?.render(time, deltaMs);
+});
+const stopAbout = initAboutMotion();
 const stopPanels = initLightPanels();
 initContact(signal);
 
@@ -27,6 +35,11 @@ loader.track("scene", import("./three/scene.js").then(async ({ createSceneManage
       options = await createHero(element, scene, signal);
       if (signal.aborted) return;
     }
+    if (scene.hasWebGL && element.dataset.section === "about") {
+      const {createAbout} = await import("./three/about.js");
+      if (signal.aborted) return;
+      options=createAbout(element,scene,signal);
+    }
     scene.register(element, options);
   }
   ScrollTrigger.refresh();
@@ -40,6 +53,7 @@ function dispose() {
   controller.abort();
   stopLoop();
   stopPanels();
+  stopAbout();
   scene?.dispose();
   loader.manager.onStart = loader.manager.onProgress = loader.manager.onLoad = undefined;
   progress.hidden = true;

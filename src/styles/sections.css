@@ -22,3 +22,33 @@ footer small { display: block; margin-top: var(--space-4); }
 @media (min-width: 48rem) {
   .skill-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+main > #about[data-section] { z-index: auto; isolation: auto; }
+#about::before { z-index: 0; }
+#about .container { position: relative; }
+.about-stage { position: relative; display: grid; place-items: center; min-height: clamp(14rem,32vw,25rem); }
+#about-title {
+  position: relative; z-index: 2; font-size: clamp(3.6rem,12vw,11.5rem); line-height: 1.18;
+  color: #454652; background: linear-gradient(172deg,#363745 12%,#8e919e 32%,#f2f2f4 43%,#696c78 48%,#272833 53%,#858997 70%,#c6c7ce 80%,#363743 95%);
+  background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: .6px #565764;
+}
+.about-stage i { position:absolute; left:7%; top:28%; width:clamp(2.6rem,6vw,5.8rem); aspect-ratio:1; pointer-events:none; }
+.about-stage i:nth-of-type(2) {left:81%;top:14%;}
+.about-stage i:nth-of-type(3) {left:72%;top:79%;width:clamp(2rem,4vw,4rem);}
+.about-copy { position:relative; z-index:2; max-width:46rem; margin:1rem auto 0; }
+.about-copy .lead {font-family:var(--display);line-height:1.14;letter-spacing:-.045em;font-size:clamp(1.8rem,4vw,3.5rem);}
+.bio-line-source {font-size:clamp(1rem,1.6vw,1.3rem);}
+.bio-line {display:block;}
+#about .stats {position:relative;z-index:2;justify-content:space-between;border-top:1px solid var(--line);padding-top:1.5rem;}
+#skills {background:var(--black);padding-inline:0;overflow:clip;}
+#skills h2 {margin:0 var(--gutter) var(--space-4);}
+.skill-window {margin:.75rem 0;}
+.skill-track ul {margin:0;padding:0 var(--gutter);list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:.75rem;}
+.skill-card {display:flex;align-items:center;gap:.85rem;padding:1rem;border:1px solid #56535e;background:#1b1a1e;border-radius:1rem;line-height:1.2;font-weight:600;}
+.skill-card svg {width:2rem;height:2rem;flex:none;color:#bdb4e1;}
+.skill-card small {display:block;color:#c0b9c8;font-weight:400;font-size:.8rem;margin-bottom:.22rem;}
+.skills-moving .skill-track,.skills-moving .skill-track ul {display:flex;width:max-content;}
+.skills-moving .skill-track {will-change:transform;}
+.skills-moving .skill-track ul {padding:0 .75rem 0 0;}
+.skills-moving .skill-card {width:clamp(12rem,18vw,17rem);flex:none;}
+@media (forced-colors:active) {#about-title {-webkit-text-fill-color:CanvasText;}}

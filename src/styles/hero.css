@@ -3,7 +3,7 @@
 #scene {
   z-index: 1;
 }
-main > [data-section]:not(#home),
+main > [data-section]:not(#home, #about),
 footer[data-section] {
   z-index: 2;
 }
