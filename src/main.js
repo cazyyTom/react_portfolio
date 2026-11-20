@@ -10,6 +10,8 @@ import { initMarquee } from "./utils/skill-marquee.js";
 
 import { initProjectsMotion } from "./utils/projects-motion.js";
 
+import { initExperienceMotion } from "./utils/experience-motion.js";
+
 const controller = new AbortController();
 const { signal } = controller;
 const progress = document.querySelector("#preloader");
@@ -22,6 +24,7 @@ const stopLoop = startLoop((time, deltaMs, velocity) => {
 });
 const stopAbout = initAboutMotion();
 const stopProjects = initProjectsMotion();
+const stopExperience = initExperienceMotion();
 const stopPanels = initLightPanels();
 initContact(signal);
 
@@ -61,6 +64,7 @@ function dispose() {
   controller.abort();
   stopLoop();
   stopPanels();
+  stopExperience();
   stopAbout();
   stopProjects();
   scene?.dispose();

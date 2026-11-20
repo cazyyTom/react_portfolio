@@ -1,0 +1,123 @@
+#projects[data-section="experience"] {
+  padding: 0;
+  margin-top: calc(-1 * var(--panel-radius));
+}
+.experience-panel {
+  position: relative;
+  color: var(--black);
+  background: var(--off-white);
+  border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+  padding: var(--section-space) var(--gutter);
+}
+.experience-heading {
+  margin-bottom: clamp(3rem, 7vw, 7rem);
+}
+.experience-heading h2 {
+  font-size: clamp(2.65rem, 12.5vw, 10rem);
+  line-height: 0.92;
+  max-width: 10ch;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+  transform-origin: left bottom;
+}
+.experience-heading p {
+  margin: var(--space-3) 0 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
+}
+.experience-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.experience-rule {
+  display: block;
+  height: 1px;
+  background: #858285;
+  transform-origin: left;
+}
+.experience-row-body {
+  display: grid;
+  align-items: start;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+.experience-number {
+  font: 900 clamp(2.6rem, 6.2vw, 6rem)/0.95 var(--display);
+  letter-spacing: -0.08em;
+}
+.experience-role h3 {
+  max-width: 15ch;
+  font-size: clamp(1.7rem, 3vw, 3.15rem);
+  letter-spacing: -0.05em;
+  line-height: 1.12;
+}
+.experience-detail {
+  grid-column: 1/-1;
+}
+.experience-detail > :first-child {
+  margin-top: 0;
+}
+.experience-detail p,
+.experience-detail li {
+  line-height: 1.55;
+  max-width: 54ch;
+}
+.experience-site {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+.experience-site img {
+  width: min(100%, 25rem);
+  border-radius: 0.85rem;
+  border: 1px solid var(--line);
+  margin: 1.25rem 0 0.5rem;
+}
+.experience-certificate {
+  display: inline-block;
+  margin-top: 0.7rem;
+}
+#contact[data-section="footer"] {
+  background: var(--black);
+  color: var(--off-white);
+  min-height: 100svh;
+}
+.site-header.over-experience {
+  background: var(--off-white);
+  color: var(--black);
+}
+@media (min-width: 54rem) {
+  .experience-row-body {
+    grid-template-columns: minmax(5rem, 0.45fr) minmax(0, 1.25fr) minmax(
+        0,
+        1.5fr
+      );
+    gap: var(--space-4);
+  }
+  .experience-detail {
+    grid-column: auto;
+  }
+}
+@media (hover: hover) {
+  .experience-row:hover .experience-number,
+  .experience-row:focus-within .experience-number {
+    background: var(--gradient);
+    background-clip: text;
+    color: transparent;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .experience-row-body {
+    transition: transform 0.2s ease;
+  }
+  .experience-row:hover .experience-row-body,
+  .experience-row:focus-within .experience-row-body {
+    transform: translateY(-4px);
+  }
+}
+@media (forced-colors: active) {
+  .experience-number {
+    color: CanvasText !important;
+  }
+}

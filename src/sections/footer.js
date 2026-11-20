@@ -1,7 +1,7 @@
 import { link, list } from "../utils/html.js";
 
 export function footer(data, ui) {
-  return `<footer id="contact" data-section="footer" class="light-panel" aria-labelledby="contact-title" tabindex="-1">
+  return `<footer id="contact" data-section="footer" aria-labelledby="contact-title" tabindex="-1">
     <div class="container">
       <p class="eyebrow">${data.availability}</p>
       <h2 id="contact-title" class="email"><a data-email href="mailto:${data.email}" data-copied="${data.mailCopied}">${data.email}</a></h2>

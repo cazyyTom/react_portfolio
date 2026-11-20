@@ -2,8 +2,9 @@ main > #work[data-section] {
   isolation: auto;
   z-index: auto;
 }
-#work::before {
-  z-index: 0;
+#work.projects-dark {
+  background: var(--black);
+  padding-bottom: calc(var(--section-space) + var(--panel-radius));
 }
 .projects-heading,
 .project-stack {
@@ -45,6 +46,7 @@ main > #work[data-section] {
   --crop: 15% 36%;
 }
 .project-surface {
+  color: var(--black);
   padding: clamp(1.15rem, 3.2vw, 3.4rem);
   border: 1px solid #a6a3a2;
   border-radius: clamp(1.4rem, 3vw, 3rem);

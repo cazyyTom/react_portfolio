@@ -35,7 +35,7 @@ function projectCard(project, label, index) {
 }
 
 export function projects(data) {
-  return `<section id="work" data-section="projects" class="light-panel" aria-labelledby="work-title" tabindex="-1">
+  return `<section id="work" data-section="projects" class="projects-dark" aria-labelledby="work-title" tabindex="-1">
     <div class="container">
       <header class="projects-heading"><p class="eyebrow">${data.eyebrow}</p><h2 id="work-title">${data.title}</h2>
         <div><p>${data.intro}</p>${link(data.github, 'target="_blank" rel="noreferrer"')}</div>
