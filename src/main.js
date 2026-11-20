@@ -8,6 +8,8 @@ import { initContact } from "./utils/contact.js";
 import { initAboutMotion } from "./utils/about-motion.js";
 import { initMarquee } from "./utils/skill-marquee.js";
 
+import { initProjectsMotion } from "./utils/projects-motion.js";
+
 const controller = new AbortController();
 const { signal } = controller;
 const progress = document.querySelector("#preloader");
@@ -19,6 +21,7 @@ const stopLoop = startLoop((time, deltaMs, velocity) => {
   scene?.render(time, deltaMs);
 });
 const stopAbout = initAboutMotion();
+const stopProjects = initProjectsMotion();
 const stopPanels = initLightPanels();
 initContact(signal);
 
@@ -40,6 +43,11 @@ loader.track("scene", import("./three/scene.js").then(async ({ createSceneManage
       if (signal.aborted) return;
       options=createAbout(element,scene,signal);
     }
+    if (scene.hasWebGL && element.dataset.section === "projects") {
+      const { createProjectGlow } = await import("./three/projects.js");
+      if (signal.aborted) return;
+      options = createProjectGlow(element, scene);
+    }
     scene.register(element, options);
   }
   ScrollTrigger.refresh();
@@ -54,6 +62,7 @@ function dispose() {
   stopLoop();
   stopPanels();
   stopAbout();
+  stopProjects();
   scene?.dispose();
   loader.manager.onStart = loader.manager.onProgress = loader.manager.onLoad = undefined;
   progress.hidden = true;

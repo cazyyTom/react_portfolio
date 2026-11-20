@@ -1,0 +1,180 @@
+main > #work[data-section] {
+  isolation: auto;
+  z-index: auto;
+}
+#work::before {
+  z-index: 0;
+}
+.projects-heading,
+.project-stack {
+  position: relative;
+  z-index: 2;
+}
+.projects-heading {
+  margin-bottom: clamp(2rem, 5vw, 5rem);
+}
+.projects-heading h2 {
+  font-size: clamp(3.2rem, 15.7vw, 14.6rem);
+  line-height: 0.98;
+  text-transform: uppercase;
+  transform-origin: left center;
+}
+.projects-heading > div,
+.project-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.projects-heading > div {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.project-sheet {
+  --accent: #edbb87;
+  --crop: 69% 58%;
+  position: relative;
+  margin: 0 0 clamp(1.5rem, 4vw, 4rem);
+}
+.project-sheet:nth-of-type(3n + 2) {
+  --accent: #bcb0ea;
+  --crop: 97% 49%;
+}
+.project-sheet:nth-of-type(3n) {
+  --accent: #a0aae9;
+  --crop: 15% 36%;
+}
+.project-surface {
+  padding: clamp(1.15rem, 3.2vw, 3.4rem);
+  border: 1px solid #a6a3a2;
+  border-radius: clamp(1.4rem, 3vw, 3rem);
+  background: #faf9f7;
+  transform-origin: 50% 0;
+}
+.project-bar {
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+}
+.project-bar .pill {
+  margin-left: auto;
+  white-space: nowrap;
+}
+.project-number {
+  font: 400 clamp(2rem, 4vw, 4rem)/1 var(--display);
+  letter-spacing: -0.07em;
+}
+.project-sheet h3 {
+  font: 400 clamp(1.8rem, 3.4vw, 3.8rem)/1.03 var(--display);
+  letter-spacing: -0.055em;
+  margin: 1.4rem 0;
+  max-width: 32ch;
+}
+.project-body {
+  display: grid;
+  gap: clamp(1.15rem, 3vw, 3rem);
+  align-items: center;
+}
+.project-notes {
+  font-size: 1rem;
+  line-height: 1.57;
+}
+.project-notes p {
+  margin-top: 0;
+}
+.project-notes .tags {
+  margin-block: 1.25rem;
+  font-size: 0.85rem;
+}
+.project-collage {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1.35;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(ellipse at 80% 16%, #ffffffa8, transparent 55%),
+    linear-gradient(
+      135deg,
+      var(--accent),
+      color-mix(in srgb, var(--accent) 50%, #514863)
+    );
+}
+.project-pictures {
+  position: absolute;
+  inset: 0;
+  transform: perspective(850px) rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg)) translateY(var(--drift, 0px));
+}
+.project-frame {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #ffffff69;
+  border-radius: clamp(0.55rem, 1vw, 1rem);
+  box-shadow: 0 0.9rem 2rem #20172540;
+}
+.project-overview {
+  width: 79%;
+  left: 5%;
+  top: 12%;
+  transform: rotate(-3deg);
+}
+.project-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.project-detail {
+  width: 41%;
+  height: 48%;
+  bottom: 11%;
+  right: 4%;
+  transform: rotate(5deg);
+  border-width: 2px;
+}
+.project-detail img {
+  object-position: var(--crop);
+  transform: scale(1.48);
+  transform-origin: var(--crop);
+}
+.preview-label {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 99rem;
+  padding: 0.2rem 0.65rem;
+  background: #141318;
+  color: #fff;
+}
+@media (min-width: 62rem) {
+  .project-body {
+    grid-template-columns: minmax(0, 1.14fr) minmax(0, 1fr);
+  }
+}
+@media (min-width: 62rem) and (not (pointer: coarse)) and (prefers-reduced-motion: no-preference) {
+  .project-stack.is-stacked .project-sheet {
+    position: sticky;
+    top: var(--pin-top);
+  }
+  .project-frame img {
+    transition: scale 0.35s ease;
+  }
+  .project-collage:hover img {
+    scale: 1.055;
+  }
+}
+@media (max-width: 32rem) {
+  .project-bar {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .project-bar .pill {
+    padding: 0.48rem 0.8rem;
+  }
+}

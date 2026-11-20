@@ -140,6 +140,7 @@
     ]
   },
   "projects": {
+    "liveLabel": "Live project",
     "eyebrow": "Selected Work",
     "title": "Projects",
     "intro": "Things I've built & shipped.",
